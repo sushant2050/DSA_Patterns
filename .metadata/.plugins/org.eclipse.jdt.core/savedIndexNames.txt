@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+/home/eternal-crown/Documents/DSA/.metadata/.plugins/org.eclipse.jdt.core
+1053506297.index
+1641688991.index
+1865797976.index

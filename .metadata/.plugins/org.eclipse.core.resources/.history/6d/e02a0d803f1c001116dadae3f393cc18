@@ -1,0 +1,153 @@
+package com.dsa.pattern;
+
+/**
+ * Demonstrates the <b>Bit Manipulation Pattern</b>.
+ *
+ * <p>
+ * Bit Manipulation involves directly working with the binary representation of
+ * numbers to perform operations efficiently. It is commonly used for
+ * optimization and solving problems involving sets, flags, and XOR properties.
+ * </p>
+ *
+ * <h2>Key Idea</h2>
+ * <ul>
+ * <li>Use bitwise operators: AND (&), OR (|), XOR (^), NOT (~), left shift
+ * (<<), right shift (>>)</li>
+ * <li>Check, set, clear, or toggle bits efficiently</li>
+ * <li>Use XOR for problems like finding a single non-repeated element</li>
+ * </ul>
+ *
+ * <h2>When to Use</h2>
+ * <ul>
+ * <li>Checking if a number is even/odd</li>
+ * <li>Finding powers of 2</li>
+ * <li>Counting set bits</li>
+ * <li>Finding the only non-repeating number in an array</li>
+ * <li>Subsets, masks, and flags</li>
+ * </ul>
+ *
+ * <h2>Example Implementation</h2>
+ *
+ * <pre>{@code
+ * package com.dsa.pattern;
+ *
+ * public class BitManipulationExample {
+ *
+ * 	// Check if nth bit is set
+ * 	public static boolean isBitSet(int num, int n) {
+ * 		return (num & (1 << n)) != 0;
+ * 	}
+ *
+ * 	// Set nth bit
+ * 	public static int setBit(int num, int n) {
+ * 		return num | (1 << n);
+ * 	}
+ *
+ * 	// Clear nth bit
+ * 	public static int clearBit(int num, int n) {
+ * 		return num & ~(1 << n);
+ * 	}
+ *
+ * 	// Toggle nth bit
+ * 	public static int toggleBit(int num, int n) {
+ * 		return num ^ (1 << n);
+ * 	}
+ *
+ * 	// Count set bits (Hamming weight)
+ * 	public static int countSetBits(int num) {
+ * 		int count = 0;
+ * 		while (num != 0) {
+ * 			num &= (num - 1); // clear the least significant set bit
+ * 			count++;
+ * 		}
+ * 		return count;
+ * 	}
+ *
+ * 	// Find single non-repeating number in array using XOR
+ * 	public static int singleNonRepeating(int[] arr) {
+ * 		int result = 0;
+ * 		for (int num : arr)
+ * 			result ^= num;
+ * 		return result;
+ * 	}
+ *
+ * 	public static void main(String[] args) {
+ * 		int num = 21; // 10101 in binary
+ * 		System.out.println("Is bit 2 set? " + isBitSet(num, 2));
+ * 		System.out.println("Set bit 1: " + setBit(num, 1));
+ * 		System.out.println("Clear bit 4: " + clearBit(num, 4));
+ * 		System.out.println("Toggle bit 0: " + toggleBit(num, 0));
+ *
+ * 		int[] arr = { 2, 3, 2, 4, 4 };
+ * 		System.out.println("Single non-repeating number: " + singleNonRepeating(arr));
+ * 	}
+ * }
+ * }</pre>
+ *
+ * <h2>Complexity</h2>
+ * <ul>
+ * <li>Time Complexity: O(n) for counting set bits or XOR over array of size
+ * n</li>
+ * <li>Space Complexity: O(1)</li>
+ * </ul>
+ *
+ * <h2>Applications</h2>
+ * <ul>
+ * <li>Set operations using bit masks</li>
+ * <li>Single element detection (XOR trick)</li>
+ * <li>Subsets generation</li>
+ * <li>Optimizations in competitive programming</li>
+ * <li>Flags and permissions representation</li>
+ * </ul>
+ */
+public class BitManipulation {
+
+	// Check if nth bit is set
+	public static boolean isBitSet(int num, int n) {
+		return (num & (1 << n)) != 0;
+	}
+
+	// Set nth bit
+	public static int setBit(int num, int n) {
+		return num | (1 << n);
+	}
+
+	// Clear nth bit
+	public static int clearBit(int num, int n) {
+		return num & ~(1 << n);
+	}
+
+	// Toggle nth bit
+	public static int toggleBit(int num, int n) {
+		return num ^ (1 << n);
+	}
+
+	// Count set bits (Hamming weight)
+	public static int countSetBits(int num) {
+		int count = 0;
+		while (num != 0) {
+			num &= (num - 1); // clear the least significant set bit
+			count++;
+		}
+		return count;
+	}
+
+	// Find single non-repeating number in array using XOR
+	public static int singleNonRepeating(int[] arr) {
+		int result = 0;
+		for (int num : arr)
+			result ^= num;
+		return result;
+	}
+
+	public static void main(String[] args) {
+		int num = 21; // 10101 in binary
+		System.out.println("Is bit 2 set? " + isBitSet(num, 2));
+		System.out.println("Set bit 1: " + setBit(num, 1));
+		System.out.println("Clear bit 4: " + clearBit(num, 4));
+		System.out.println("Toggle bit 0: " + toggleBit(num, 0));
+
+		int[] arr = { 2, 3, 2, 4, 4 };
+		System.out.println("Single non-repeating number: " + singleNonRepeating(arr));
+	}
+}}

@@ -1,0 +1,154 @@
+package com.dsa.pattern;
+
+/**
+ * Demonstrates the <b>Fast and Slow Pointer Pattern</b> (also called Floyd’s
+ * Tortoise and Hare).
+ *
+ * <p>
+ * This pattern uses two pointers moving at different speeds through a data
+ * structure, commonly used for cycle detection, finding middle elements, or
+ * detecting duplicates.
+ * </p>
+ *
+ * <h2>Key Idea</h2>
+ * <ul>
+ * <li>Maintain a slow pointer that moves one step at a time</li>
+ * <li>Maintain a fast pointer that moves two steps at a time</li>
+ * <li>If a cycle exists, the fast pointer will eventually meet the slow
+ * pointer</li>
+ * <li>Can also be used to find the middle of a linked list efficiently</li>
+ * </ul>
+ *
+ * <h2>When to Use</h2>
+ * <ul>
+ * <li>Detect cycles in linked lists or sequences</li>
+ * <li>Find middle element in a linked list</li>
+ * <li>Check for repeated states in iterative sequences</li>
+ * </ul>
+ *
+ * <h2>Example Implementation (Cycle Detection in Linked List)</h2>
+ *
+ * <pre>{@code
+ * package com.dsa.pattern;
+ *
+ * static class ListNode {
+ * 	int val;
+ * 	ListNode next;
+ * 
+ * 	ListNode(int val) {
+ * 		this.val = val;
+ * 	}
+ * }
+ *
+ * public class FastAndSlowPointerExample {
+ *
+ * 	// Detect cycle in a linked list
+ * 	public static boolean hasCycle(ListNode head) {
+ * 		if (head == null)
+ * 			return false;
+ * 		ListNode slow = head, fast = head;
+ * 		while (fast != null && fast.next != null) {
+ * 			slow = slow.next;
+ * 			fast = fast.next.next;
+ * 			if (slow == fast)
+ * 				return true; // cycle detected
+ * 		}
+ * 		return false;
+ * 	}
+ *
+ * 	// Find middle element of linked list
+ * 	public static ListNode findMiddle(ListNode head) {
+ * 		if (head == null)
+ * 			return null;
+ * 		ListNode slow = head, fast = head;
+ * 		while (fast != null && fast.next != null) {
+ * 			slow = slow.next;
+ * 			fast = fast.next.next;
+ * 		}
+ * 		return slow;
+ * 	}
+ *
+ * 	public static void main(String[] args) {
+ * 		ListNode head = new ListNode(1);
+ * 		head.next = new ListNode(2);
+ * 		head.next.next = new ListNode(3);
+ * 		head.next.next.next = new ListNode(4);
+ *
+ * 		// Create a cycle for testing
+ * 		head.next.next.next.next = head.next;
+ *
+ * 		System.out.println("Cycle detected? " + hasCycle(head));
+ *
+ * 		// Remove cycle to find middle
+ * 		head.next.next.next.next = null;
+ * 		System.out.println("Middle node value: " + findMiddle(head).val);
+ * 	}
+ * }
+ * }</pre>
+ *
+ * <h2>Complexity</h2>
+ * <ul>
+ * <li>Time: O(n) for traversing the list</li>
+ * <li>Space: O(1) – constant extra space</li>
+ * </ul>
+ *
+ * <h2>Applications</h2>
+ * <ul>
+ * <li>Detecting cycles in linked lists</li>
+ * <li>Finding middle elements efficiently</li>
+ * <li>Floyd’s cycle-finding algorithm in sequences</li>
+ * </ul>
+ */
+ class ListNode {
+	int val;
+	ListNode next;
+
+	ListNode(int val) {
+		this.val = val;
+	}
+}
+
+public class FastAndSlowPointer {
+
+	// Detect cycle in a linked list
+	public static boolean hasCycle(ListNode head) {
+		if (head == null)
+			return false;
+		ListNode slow = head, fast = head;
+		while (fast != null && fast.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+			if (slow == fast)
+				return true; // cycle detected
+		}
+		return false;
+	}
+
+	// Find middle element of linked list
+	public static ListNode findMiddle(ListNode head) {
+		if (head == null)
+			return null;
+		ListNode slow = head, fast = head;
+		while (fast != null && fast.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		return slow;
+	}
+
+	public static void main(String[] args) {
+		ListNode head = new ListNode(1);
+		head.next = new ListNode(2);
+		head.next.next = new ListNode(3);
+		head.next.next.next = new ListNode(4);
+
+		// Create a cycle for testing
+		head.next.next.next.next = head.next;
+
+		System.out.println("Cycle detected? " + hasCycle(head));
+
+		// Remove cycle to find middle
+		head.next.next.next.next = null;
+		System.out.println("Middle node value: " + findMiddle(head).val);
+	}
+}

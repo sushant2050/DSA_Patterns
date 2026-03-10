@@ -1,0 +1,105 @@
+package com.dsa.pattern;
+
+package com.dsa.pattern;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Demonstrates the <b>Hashing / Frequency Counting Pattern</b>.
+ *
+ * <p>
+ * This pattern uses a hash-based data structure (usually a HashMap or HashSet)
+ * to store and retrieve information quickly. It is commonly used to count
+ * occurrences of elements or to check whether an element has been seen before.
+ * </p>
+ *
+ * <h2>When to Use</h2>
+ * <ul>
+ *   <li>Counting frequency of elements</li>
+ *   <li>Finding duplicates</li>
+ *   <li>Checking existence of elements</li>
+ *   <li>Solving problems like Two Sum</li>
+ * </ul>
+ *
+ * <h2>Key Idea</h2>
+ * <p>
+ * Store elements as keys in a hash map and keep their counts as values.
+ * This allows constant-time lookup on average.
+ * </p>
+ *
+ * <h2>Example Implementation</h2>
+ *
+ * <pre>{@code
+ * package com.dsa.pattern;
+ *
+ * import java.util.HashMap;
+ * import java.util.Map;
+ *
+ * public class HashingFrequencyCountingExample {
+ *
+ *     // Count frequency of each number in the array
+ *     public static void countFrequency(int[] arr) {
+ *
+ *         Map<Integer, Integer> frequencyMap = new HashMap<>();
+ *
+ *         for (int num : arr) {
+ *             frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+ *         }
+ *
+ *         System.out.println("Element Frequencies:");
+ *
+ *         for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+ *             System.out.println(entry.getKey() + " -> " + entry.getValue());
+ *         }
+ *     }
+ *
+ *     public static void main(String[] args) {
+ *
+ *         int[] arr = {1, 2, 2, 3, 3, 3, 4, 5, 5};
+ *
+ *         countFrequency(arr);
+ *     }
+ * }
+ * }</pre>
+ *
+ * <h2>Complexity</h2>
+ * <ul>
+ *   <li><b>Time Complexity:</b> O(n)</li>
+ *   <li><b>Space Complexity:</b> O(n)</li>
+ * </ul>
+ *
+ * <h2>Common Problems Using Hashing</h2>
+ * <ul>
+ *   <li>Two Sum</li>
+ *   <li>Count frequency of elements</li>
+ *   <li>Find duplicates in array</li>
+ *   <li>First non-repeating character</li>
+ *   <li>Group anagrams</li>
+ * </ul>
+ */
+public class HashingFrequencyCounting {
+
+	// Count frequency of each number in the array
+	public static void countFrequency(int[] arr) {
+
+		Map<Integer, Integer> frequencyMap = new HashMap<>();
+
+		for (int num : arr) {
+			frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+		}
+
+		System.out.println("Element Frequencies:");
+
+		for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+			System.out.println(entry.getKey() + " -> " + entry.getValue());
+		}
+	}
+
+	public static void main(String[] args) {
+
+		int[] arr = { 1, 2, 2, 3, 3, 3, 4, 5, 5 };
+
+		countFrequency(arr);
+	}
+}

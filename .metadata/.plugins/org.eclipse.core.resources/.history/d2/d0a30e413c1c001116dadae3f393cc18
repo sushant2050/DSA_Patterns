@@ -1,0 +1,100 @@
+package com.dsa.pattern;
+
+/**
+ * Demonstrates the <b>Recursion Pattern</b>.
+ *
+ * <p>
+ * Recursion is a technique where a function calls itself to solve a smaller
+ * version of a problem. It is commonly used for problems that can be broken
+ * down into identical subproblems.
+ * </p>
+ *
+ * <h2>Key Idea</h2>
+ * <ul>
+ *   <li>Define a base case to stop recursion</li>
+ *   <li>Define a recursive case that reduces the problem size</li>
+ *   <li>Combine results from recursive calls to form the final answer</li>
+ * </ul>
+ *
+ * <h2>When to Use</h2>
+ * <ul>
+ *   <li>Factorial computation</li>
+ *   <li>Fibonacci numbers</li>
+ *   <li>Tree and graph traversal (DFS)</li>
+ *   <li>Divide and conquer algorithms</li>
+ *   <li>Backtracking problems</li>
+ * </ul>
+ *
+ * <h2>Example Implementation</h2>
+ *
+ * <pre>{@code
+ * package com.dsa.pattern;
+ *
+ * public class RecursionExample {
+ *
+ *     // Compute factorial of n
+ *     public static int factorial(int n) {
+ *         if (n == 0 || n == 1) {  // base case
+ *             return 1;
+ *         }
+ *         return n * factorial(n - 1); // recursive case
+ *     }
+ *
+ *     // Compute nth Fibonacci number
+ *     public static int fibonacci(int n) {
+ *         if (n == 0) return 0;
+ *         if (n == 1) return 1;
+ *         return fibonacci(n - 1) + fibonacci(n - 2);
+ *     }
+ *
+ *     public static void main(String[] args) {
+ *
+ *         int n = 5;
+ *         System.out.println("Factorial of " + n + " = " + factorial(n));
+ *         System.out.println(n + "th Fibonacci number = " + fibonacci(n));
+ *     }
+ * }
+ * }</pre>
+ *
+ * <h2>Complexity</h2>
+ * <ul>
+ *   <li>Factorial: O(n) time, O(n) recursion stack</li>
+ *   <li>Fibonacci (naive recursive): O(2^n) time, O(n) recursion stack</li>
+ * </ul>
+ *
+ * <h2>Applications</h2>
+ * <ul>
+ *   <li>Mathematical sequences (factorial, Fibonacci)</li>
+ *   <li>Tree traversal (preorder, inorder, postorder)</li>
+ *   <li>Graph traversal (DFS)</li>
+ *   <li>Backtracking (permutations, combinations, N-Queens)</li>
+ *   <li>Divide and conquer algorithms (merge sort, quick sort)</li>
+ * </ul>
+ */
+public class Recursion {
+
+	public class RecursionExample {
+		 
+		     // Compute factorial of n
+		     public static int factorial(int n) {
+		         if (n == 0 || n == 1) {  // base case
+		             return 1;
+		         }
+		         return n * factorial(n - 1); // recursive case
+		     }
+		 
+		     // Compute nth Fibonacci number
+		     public static int fibonacci(int n) {
+		         if (n == 0) return 0;
+		         if (n == 1) return 1;
+		         return fibonacci(n - 1) + fibonacci(n - 2);
+		     }
+		 
+		     public static void main(String[] args) {
+		 
+		         int n = 5;
+		         System.out.println("Factorial of " + n + " = " + factorial(n));
+		         System.out.println(n + "th Fibonacci number = " + fibonacci(n));
+		     }
+		 }
+}

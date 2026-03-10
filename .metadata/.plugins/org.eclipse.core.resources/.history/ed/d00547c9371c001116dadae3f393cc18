@@ -1,0 +1,10 @@
+package com.dsa.pattern;
+
+public class two_pointers {
+
+	/**
+	 * Used when two indices move through a structure
+	 * prompt:write a program for step by step understanding how to use this pattern wherever there is need
+	 * */
+	
+}

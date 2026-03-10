@@ -1,0 +1,141 @@
+package com.dsa.pattern;
+
+/**
+ * Demonstrates the <b>Divide and Conquer Pattern</b>.
+ *
+ * <p>
+ * Divide and Conquer is a technique where a problem is divided into smaller
+ * subproblems, each subproblem is solved recursively, and the results are
+ * combined to form the final solution.
+ * </p>
+ *
+ * <h2>Key Idea</h2>
+ * <ul>
+ *   <li>Divide the problem into smaller subproblems</li>
+ *   <li>Solve each subproblem recursively</li>
+ *   <li>Combine the solutions of subproblems to get the final result</li>
+ * </ul>
+ *
+ * <h2>When to Use</h2>
+ * <ul>
+ *   <li>Sorting algorithms (Merge Sort, Quick Sort)</li>
+ *   <li>Binary Search</li>
+ *   <li>Finding maximum/minimum in an array</li>
+ *   <li>Matrix multiplication (Strassen’s algorithm)</li>
+ * </ul>
+ *
+ * <h2>Example Implementation</h2>
+ *
+ * <pre>{@code
+ * package com.dsa.pattern;
+ *
+ * public class DivideAndConquerExample {
+ *
+ *     // Merge Sort implementation
+ *     public static void mergeSort(int[] arr, int left, int right) {
+ *         if (left >= right) return; // base case
+ *
+ *         int mid = left + (right - left) / 2;
+ *
+ *         mergeSort(arr, left, mid);       // divide left half
+ *         mergeSort(arr, mid + 1, right);  // divide right half
+ *
+ *         merge(arr, left, mid, right);    // conquer (merge)
+ *     }
+ *
+ *     private static void merge(int[] arr, int left, int mid, int right) {
+ *
+ *         int n1 = mid - left + 1;
+ *         int n2 = right - mid;
+ *
+ *         int[] L = new int[n1];
+ *         int[] R = new int[n2];
+ *
+ *         for (int i = 0; i < n1; i++) L[i] = arr[left + i];
+ *         for (int i = 0; i < n2; i++) R[i] = arr[mid + 1 + i];
+ *
+ *         int i = 0, j = 0, k = left;
+ *         while (i < n1 && j < n2) {
+ *             if (L[i] <= R[j]) arr[k++] = L[i++];
+ *             else arr[k++] = R[j++];
+ *         }
+ *
+ *         while (i < n1) arr[k++] = L[i++];
+ *         while (j < n2) arr[k++] = R[j++];
+ *     }
+ *
+ *     public static void main(String[] args) {
+ *
+ *         int[] arr = {5, 2, 9, 1, 5, 6};
+ *
+ *         mergeSort(arr, 0, arr.length - 1);
+ *
+ *         System.out.println("Sorted Array:");
+ *         for (int num : arr) System.out.print(num + " ");
+ *     }
+ * }
+ * }</pre>
+ *
+ * <h2>Complexity</h2>
+ * <ul>
+ *   <li>Time Complexity: O(n log n)</li>
+ *   <li>Space Complexity: O(n) auxiliary space for merge</li>
+ * </ul>
+ *
+ * <h2>Applications</h2>
+ * <ul>
+ *   <li>Merge Sort / Quick Sort</li>
+ *   <li>Binary Search</li>
+ *   <li>Finding maximum/minimum in arrays</li>
+ *   <li>Strassen’s Matrix Multiplication</li>
+ *   <li>Divide-and-Conquer algorithms in geometry or DP</li>
+ * </ul>
+ */
+public class DivideAndConquer {
+
+	public class DivideAndConquerExample {
+
+     // Merge Sort implementation
+     public static void mergeSort(int[] arr, int left, int right) {
+         if (left >= right) return; // base case
+
+         int mid = left + (right - left) / 2;
+
+         mergeSort(arr, left, mid);       // divide left half
+         mergeSort(arr, mid + 1, right);  // divide right half
+
+         merge(arr, left, mid, right);    // conquer (merge)
+     }
+
+     private static void merge(int[] arr, int left, int mid, int right) {
+
+         int n1 = mid - left + 1;
+         int n2 = right - mid;
+
+         int[] L = new int[n1];
+         int[] R = new int[n2];
+
+         for (int i = 0; i < n1; i++) L[i] = arr[left + i];
+         for (int i = 0; i < n2; i++) R[i] = arr[mid + 1 + i];
+
+         int i = 0, j = 0, k = left;
+         while (i < n1 && j < n2) {
+             if (L[i] <= R[j]) arr[k++] = L[i++];
+             else arr[k++] = R[j++];
+         }
+
+         while (i < n1) arr[k++] = L[i++];
+         while (j < n2) arr[k++] = R[j++];
+     }
+
+     public static void main(String[] args) {
+
+         int[] arr = {5, 2, 9, 1, 5, 6};
+
+         mergeSort(arr, 0, arr.length - 1);
+
+         System.out.println("Sorted Array:");
+         for (int num : arr) System.out.print(num + " ");
+     }
+ }
+}

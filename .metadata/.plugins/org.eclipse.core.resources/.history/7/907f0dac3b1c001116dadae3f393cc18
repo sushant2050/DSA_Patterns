@@ -1,0 +1,117 @@
+package com.dsa.pattern;
+
+package com.dsa.pattern;
+
+import java.util.PriorityQueue;
+
+/**
+ * Demonstrates the <b>Heap / Priority Queue Pattern</b>.
+ *
+ * <p>
+ * A Heap (often implemented as a PriorityQueue in Java) allows efficient
+ * access to the minimum or maximum element in a collection. It is commonly
+ * used in problems that require dynamically retrieving the largest or smallest
+ * element repeatedly.
+ * </p>
+ *
+ * <h2>Key Idea</h2>
+ * <ul>
+ *   <li>Use a heap to maintain order of elements by priority</li>
+ *   <li>Min-heap: smallest element at the top</li>
+ *   <li>Max-heap: largest element at the top (use custom comparator)</li>
+ *   <li>Insertion and removal are O(log n)</li>
+ * </ul>
+ *
+ * <h2>When to Use</h2>
+ * <ul>
+ *   <li>Find k largest or smallest elements</li>
+ *   <li>Merge k sorted arrays</li>
+ *   <li>Dynamic median problems</li>
+ *   <li>Task scheduling with priorities</li>
+ * </ul>
+ *
+ * <h2>Example Implementation</h2>
+ *
+ * <pre>{@code
+ * package com.dsa.pattern;
+ *
+ * import java.util.PriorityQueue;
+ *
+ * public class HeapPriorityQueueExample {
+ *
+ *     public static void main(String[] args) {
+ *
+ *         // Min-heap
+ *         PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+ *
+ *         int[] arr = {5, 3, 8, 1, 6};
+ *
+ *         for (int num : arr) {
+ *             minHeap.add(num);
+ *         }
+ *
+ *         System.out.println("Elements in Min-Heap order:");
+ *         while (!minHeap.isEmpty()) {
+ *             System.out.println(minHeap.poll());
+ *         }
+ *
+ *         // Max-heap
+ *         PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+ *         for (int num : arr) {
+ *             maxHeap.add(num);
+ *         }
+ *
+ *         System.out.println("Elements in Max-Heap order:");
+ *         while (!maxHeap.isEmpty()) {
+ *             System.out.println(maxHeap.poll());
+ *         }
+ *     }
+ * }
+ * }</pre>
+ *
+ * <h2>Complexity</h2>
+ * <ul>
+ *   <li>Insertion: O(log n)</li>
+ *   <li>Removal / Poll: O(log n)</li>
+ *   <li>Peek / Top: O(1)</li>
+ *   <li>Space Complexity: O(n)</li>
+ * </ul>
+ *
+ * <h2>Applications</h2>
+ * <ul>
+ *   <li>Heap Sort</li>
+ *   <li>Top K elements problems</li>
+ *   <li>Dijkstra's shortest path</li>
+ *   <li>Task scheduling by priority</li>
+ * </ul>
+ */
+public class HeapPriorityQueue {
+
+    public static void main(String[] args) {
+
+        // Min-heap
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+
+        int[] arr = {5, 3, 8, 1, 6};
+
+        for (int num : arr) {
+            minHeap.add(num);
+        }
+
+        System.out.println("Elements in Min-Heap order:");
+        while (!minHeap.isEmpty()) {
+            System.out.println(minHeap.poll());
+        }
+
+        // Max-heap
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>((a, b) -> b - a);
+        for (int num : arr) {
+            maxHeap.add(num);
+        }
+
+        System.out.println("Elements in Max-Heap order:");
+        while (!maxHeap.isEmpty()) {
+            System.out.println(maxHeap.poll());
+        }
+    }
+}
