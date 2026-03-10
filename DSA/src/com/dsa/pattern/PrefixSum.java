@@ -1,0 +1,139 @@
+package com.dsa.pattern;
+
+/**
+ * Demonstrates the <b>Prefix Sum Pattern</b>.
+ *
+ * <p>
+ * Prefix Sum is a technique used to preprocess an array so that
+ * range sum queries can be answered efficiently. Instead of computing
+ * the sum of elements repeatedly, we build a prefix array where each
+ * position stores the cumulative sum up to that index.
+ * </p>
+ *
+ * <h2>Key Idea</h2>
+ * <p>
+ * Create a prefix sum array where:
+ * </p>
+ *
+ * <pre>
+ * prefix[i] = arr[0] + arr[1] + ... + arr[i]
+ * </pre>
+ *
+ * <p>
+ * Using this array, the sum of any subarray can be calculated in constant time.
+ * </p>
+ *
+ * <pre>
+ * sum(l,r) = prefix[r] - prefix[l-1]
+ * </pre>
+ *
+ * <h2>When to Use</h2>
+ * <ul>
+ *   <li>Frequent range sum queries</li>
+ *   <li>Subarray sum problems</li>
+ *   <li>Cumulative calculations</li>
+ * </ul>
+ *
+ * <h2>Example Implementation</h2>
+ *
+ * <pre>{@code
+ * package com.dsa.pattern;
+ *
+ * public class PrefixSumExample {
+ *
+ *     // Build prefix sum array
+ *     public static int[] buildPrefixSum(int[] arr) {
+ *
+ *         int[] prefix = new int[arr.length];
+ *         prefix[0] = arr[0];
+ *
+ *         for (int i = 1; i < arr.length; i++) {
+ *             prefix[i] = prefix[i - 1] + arr[i];
+ *         }
+ *
+ *         return prefix;
+ *     }
+ *
+ *     // Get sum of subarray from index l to r
+ *     public static int rangeSum(int[] prefix, int l, int r) {
+ *
+ *         if (l == 0) {
+ *             return prefix[r];
+ *         }
+ *
+ *         return prefix[r] - prefix[l - 1];
+ *     }
+ *
+ *     public static void main(String[] args) {
+ *
+ *         int[] arr = {2, 4, 6, 8, 10};
+ *
+ *         int[] prefix = buildPrefixSum(arr);
+ *
+ *         int left = 1;
+ *         int right = 3;
+ *
+ *         int result = rangeSum(prefix, left, right);
+ *
+ *         System.out.println("Sum from index " + left + " to " + right + " = " + result);
+ *     }
+ * }
+ * }</pre>
+ *
+ * <h2>Complexity</h2>
+ * <ul>
+ *   <li><b>Prefix Array Construction:</b> O(n)</li>
+ *   <li><b>Range Query:</b> O(1)</li>
+ *   <li><b>Space Complexity:</b> O(n)</li>
+ * </ul>
+ *
+ * <h2>Common Problems Using Prefix Sum</h2>
+ * <ul>
+ *   <li>Range Sum Query</li>
+ *   <li>Subarray Sum Equals K</li>
+ *   <li>Running totals</li>
+ *   <li>2D matrix sum queries</li>
+ * </ul>
+ */
+public class PrefixSum {
+
+	public class PrefixSumExample {
+
+		// Build prefix sum array
+		public static int[] buildPrefixSum(int[] arr) {
+
+			int[] prefix = new int[arr.length];
+			prefix[0] = arr[0];
+
+			for (int i = 1; i < arr.length; i++) {
+				prefix[i] = prefix[i - 1] + arr[i];
+			}
+
+			return prefix;
+		}
+
+		// Get sum of subarray from index l to r
+		public static int rangeSum(int[] prefix, int l, int r) {
+
+			if (l == 0) {
+				return prefix[r];
+			}
+
+			return prefix[r] - prefix[l - 1];
+		}
+
+		public static void main(String[] args) {
+
+			int[] arr = { 2, 4, 6, 8, 10 };
+
+			int[] prefix = buildPrefixSum(arr);
+
+			int left = 1;
+			int right = 3;
+
+			int result = rangeSum(prefix, left, right);
+
+			System.out.println("Sum from index " + left + " to " + right + " = " + result);
+		}
+	}
+}

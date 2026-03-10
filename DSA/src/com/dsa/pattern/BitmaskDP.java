@@ -1,0 +1,120 @@
+package com.dsa.pattern;
+
+/**
+ * Demonstrates the <b>Bitmask Dynamic Programming (Bitmask DP) Pattern</b>.
+ *
+ * <p>
+ * Bitmask DP is used for problems involving subsets of elements where the
+ * number of elements is small (usually ≤ 20), and the state can be represented
+ * efficiently as a bitmask integer. Common applications include Traveling
+ * Salesman Problem (TSP), subset sum variants, and combinatorial optimization.
+ * </p>
+ *
+ * <h2>Key Idea</h2>
+ * <ul>
+ * <li>Use an integer to represent subsets of elements, where each bit indicates
+ * inclusion/exclusion.</li>
+ * <li>DP state: dp[mask] = optimal value for subset represented by mask.</li>
+ * <li>Transition: iterate over all elements not yet included and update dp[mask
+ * | (1 << i)].</li>
+ * <li>Reduces memory and runtime compared to storing subsets as arrays or
+ * lists.</li>
+ * </ul>
+ *
+ * <h2>When to Use</h2>
+ * <ul>
+ * <li>Traveling Salesman Problem (TSP) for ≤ 20 cities</li>
+ * <li>Subset sum / combinatorial optimization with small N</li>
+ * <li>Problems involving all subsets of a set where N is small</li>
+ * </ul>
+ *
+ * <h2>Example Implementation (TSP)</h2>
+ *
+ * <pre>{@code
+ * package com.dsa.pattern;
+ *
+ * public class BitmaskDPExample {
+ *
+ * 	// Traveling Salesman Problem (TSP) using Bitmask DP
+ * 	static int tsp(int[][] dist) {
+ * 		int n = dist.length;
+ * 		int[][] dp = new int[1 << n][n];
+ * 		for (int i = 0; i < (1 << n); i++)
+ * 			for (int j = 0; j < n; j++)
+ * 				dp[i][j] = Integer.MAX_VALUE / 2; // avoid overflow
+ *
+ * 		dp[1][0] = 0; // start at node 0, mask 1<<0
+ *
+ * 		for (int mask = 1; mask < (1 << n); mask++) {
+ * 			for (int u = 0; u < n; u++) {
+ * 				if ((mask & (1 << u)) == 0)
+ * 					continue;
+ * 				for (int v = 0; v < n; v++) {
+ * 					if ((mask & (1 << v)) != 0)
+ * 						continue;
+ * 					dp[mask | (1 << v)][v] = Math.min(dp[mask | (1 << v)][v], dp[mask][u] + dist[u][v]);
+ * 				}
+ * 			}
+ * 		}
+ *
+ * 		int ans = Integer.MAX_VALUE;
+ * 		for (int u = 1; u < n; u++)
+ * 			ans = Math.min(ans, dp[(1 << n) - 1][u] + dist[u][0]);
+ * 		return ans;
+ * 	}
+ *
+ * 	public static void main(String[] args) {
+ * 		int[][] dist = { { 0, 10, 15, 20 }, { 10, 0, 35, 25 }, { 15, 35, 0, 30 }, { 20, 25, 30, 0 } };
+ * 		System.out.println("Minimum TSP tour cost: " + tsp(dist));
+ * 	}
+ * }
+ * }</pre>
+ *
+ * <h2>Complexity</h2>
+ * <ul>
+ * <li>Time: O(2^N * N^2) for TSP with N nodes</li>
+ * <li>Space: O(2^N * N) for DP table</li>
+ * </ul>
+ *
+ * <h2>Applications</h2>
+ * <ul>
+ * <li>Traveling Salesman Problem (TSP)</li>
+ * <li>Subset sum / subset optimization for small N</li>
+ * <li>Bitmask combinatorial problems</li>
+ * </ul>
+ */
+public class BitmaskDP {
+
+	// Traveling Salesman Problem (TSP) using Bitmask DP
+	static int tsp(int[][] dist) {
+		int n = dist.length;
+		int[][] dp = new int[1 << n][n];
+		for (int i = 0; i < (1 << n); i++)
+			for (int j = 0; j < n; j++)
+				dp[i][j] = Integer.MAX_VALUE / 2; // avoid overflow
+
+		dp[1][0] = 0; // start at node 0, mask 1<<0
+
+		for (int mask = 1; mask < (1 << n); mask++) {
+			for (int u = 0; u < n; u++) {
+				if ((mask & (1 << u)) == 0)
+					continue;
+				for (int v = 0; v < n; v++) {
+					if ((mask & (1 << v)) != 0)
+						continue;
+					dp[mask | (1 << v)][v] = Math.min(dp[mask | (1 << v)][v], dp[mask][u] + dist[u][v]);
+				}
+			}
+		}
+
+		int ans = Integer.MAX_VALUE;
+		for (int u = 1; u < n; u++)
+			ans = Math.min(ans, dp[(1 << n) - 1][u] + dist[u][0]);
+		return ans;
+	}
+
+	public static void main(String[] args) {
+		int[][] dist = { { 0, 10, 15, 20 }, { 10, 0, 35, 25 }, { 15, 35, 0, 30 }, { 20, 25, 30, 0 } };
+		System.out.println("Minimum TSP tour cost: " + tsp(dist));
+	}
+}

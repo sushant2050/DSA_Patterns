@@ -1,0 +1,159 @@
+package com.dsa.pattern;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+/**
+ * Demonstrates the <b>Topological Sort Pattern</b>.
+ *
+ * <p>
+ * Topological Sort is a linear ordering of vertices in a Directed Acyclic Graph (DAG)
+ * such that for every directed edge u → v, vertex u comes before vertex v in the ordering.
+ * </p>
+ *
+ * <h2>Key Idea</h2>
+ * <ul>
+ *   <li>Use Depth-First Search (DFS) or Kahn's Algorithm (BFS-based) to generate ordering</li>
+ *   <li>Keep track of visited nodes (DFS) or in-degrees (Kahn's)</li>
+ *   <li>Push nodes to stack (DFS) or queue (BFS) when all dependencies are processed</li>
+ * </ul>
+ *
+ * <h2>When to Use</h2>
+ * <ul>
+ *   <li>Task scheduling problems</li>
+ *   <li>Course prerequisite problems</li>
+ *   <li>Dependency resolution (build systems, package managers)</li>
+ *   <li>Any problem requiring ordering in DAG</li>
+ * </ul>
+ *
+ * <h2>Example Implementation (DFS-based)</h2>
+ *
+ * <pre>{@code
+ * package com.dsa.pattern;
+ *
+ * import java.util.*;
+ *
+ * public class TopologicalSortExample {
+ *
+ *     static class Graph {
+ *         int V;
+ *         List<List<Integer>> adj;
+ *
+ *         Graph(int V) {
+ *             this.V = V;
+ *             adj = new ArrayList<>();
+ *             for (int i = 0; i < V; i++) adj.add(new ArrayList<>());
+ *         }
+ *
+ *         void addEdge(int u, int v) {
+ *             adj.get(u).add(v);
+ *         }
+ *     }
+ *
+ *     // DFS-based Topological Sort
+ *     public static void topoSortDFS(Graph g) {
+ *         boolean[] visited = new boolean[g.V];
+ *         Stack<Integer> stack = new Stack<>();
+ *
+ *         for (int i = 0; i < g.V; i++) {
+ *             if (!visited[i]) dfs(i, visited, stack, g);
+ *         }
+ *
+ *         System.out.print("Topological Order: ");
+ *         while (!stack.isEmpty()) System.out.print(stack.pop() + " ");
+ *         System.out.println();
+ *     }
+ *
+ *     private static void dfs(int node, boolean[] visited, Stack<Integer> stack, Graph g) {
+ *         visited[node] = true;
+ *         for (int neighbor : g.adj.get(node)) {
+ *             if (!visited[neighbor]) dfs(neighbor, visited, stack, g);
+ *         }
+ *         stack.push(node);
+ *     }
+ *
+ *     public static void main(String[] args) {
+ *         Graph g = new Graph(6);
+ *         g.addEdge(5, 2);
+ *         g.addEdge(5, 0);
+ *         g.addEdge(4, 0);
+ *         g.addEdge(4, 1);
+ *         g.addEdge(2, 3);
+ *         g.addEdge(3, 1);
+ *
+ *         topoSortDFS(g);
+ *     }
+ * }
+ * }</pre>
+ *
+ * <h2>Complexity</h2>
+ * <ul>
+ *   <li>Time Complexity: O(V + E), where V is vertices, E is edges</li>
+ *   <li>Space Complexity: O(V) for visited array + recursion stack</li>
+ * </ul>
+ *
+ * <h2>Applications</h2>
+ * <ul>
+ *   <li>Task scheduling with dependencies</li>
+ *   <li>Course prerequisite ordering</li>
+ *   <li>Build systems / dependency resolution</li>
+ *   <li>DAG-based algorithms</li>
+ * </ul>
+ */
+public class TopologicalSort {
+
+
+		static class Graph {
+			int V;
+			List<List<Integer>> adj;
+
+			Graph(int V) {
+				this.V = V;
+				adj = new ArrayList<>();
+				for (int i = 0; i < V; i++)
+					adj.add(new ArrayList<>());
+			}
+
+			void addEdge(int u, int v) {
+				adj.get(u).add(v);
+			}
+		}
+
+		// DFS-based Topological Sort
+		public static void topoSortDFS(Graph g) {
+			boolean[] visited = new boolean[g.V];
+			Stack<Integer> stack = new Stack<>();
+
+			for (int i = 0; i < g.V; i++) {
+				if (!visited[i])
+					dfs(i, visited, stack, g);
+			}
+
+			System.out.print("Topological Order: ");
+			while (!stack.isEmpty())
+				System.out.print(stack.pop() + " ");
+			System.out.println();
+		}
+
+		private static void dfs(int node, boolean[] visited, Stack<Integer> stack, Graph g) {
+			visited[node] = true;
+			for (int neighbor : g.adj.get(node)) {
+				if (!visited[neighbor])
+					dfs(neighbor, visited, stack, g);
+			}
+			stack.push(node);
+		}
+
+		public static void main(String[] args) {
+			Graph g = new Graph(6);
+			g.addEdge(5, 2);
+			g.addEdge(5, 0);
+			g.addEdge(4, 0);
+			g.addEdge(4, 1);
+			g.addEdge(2, 3);
+			g.addEdge(3, 1);
+
+			topoSortDFS(g);
+		}
+}

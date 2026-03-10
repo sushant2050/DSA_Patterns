@@ -1,0 +1,153 @@
+package com.dsa.pattern;
+
+
+/**
+ * Demonstrates the <b>Union-Find / Disjoint Set Pattern</b>.
+ *
+ * <p>
+ * Union-Find (also called Disjoint Set Union, DSU) is a data structure
+ * that keeps track of a set of elements partitioned into disjoint subsets.
+ * It supports two main operations efficiently:
+ * </p>
+ *
+ * <ul>
+ *   <li><b>Find:</b> Determine which subset a particular element belongs to</li>
+ *   <li><b>Union:</b> Merge two subsets into a single subset</li>
+ * </ul>
+ *
+ * <h2>Key Idea</h2>
+ * <ul>
+ *   <li>Use an array `parent[]` where `parent[i]` is the parent of element i</li>
+ *   <li>Optionally, use `rank[]` or `size[]` to optimize union operations</li>
+ *   <li>Path compression in `find` ensures nearly O(1) amortized operations</li>
+ * </ul>
+ *
+ * <h2>When to Use</h2>
+ * <ul>
+ *   <li>Connected components in undirected graphs</li>
+ *   <li>Kruskal’s algorithm for Minimum Spanning Tree</li>
+ *   <li>Checking if adding an edge creates a cycle</li>
+ *   <li>Dynamic connectivity problems</li>
+ * </ul>
+ *
+ * <h2>Example Implementation</h2>
+ *
+ * <pre>{@code
+ * package com.dsa.pattern;
+ *
+ * public class UnionFindDisjointSetExample {
+ *
+ *     static class UnionFind {
+ *         int[] parent, rank;
+ *
+ *         UnionFind(int n) {
+ *             parent = new int[n];
+ *             rank = new int[n];
+ *             for (int i = 0; i < n; i++) parent[i] = i;
+ *         }
+ *
+ *         int find(int x) {
+ *             if (parent[x] != x) parent[x] = find(parent[x]); // path compression
+ *             return parent[x];
+ *         }
+ *
+ *         void union(int x, int y) {
+ *             int rootX = find(x);
+ *             int rootY = find(y);
+ *             if (rootX == rootY) return;
+ *
+ *             if (rank[rootX] < rank[rootY]) {
+ *                 parent[rootX] = rootY;
+ *             } else if (rank[rootX] > rank[rootY]) {
+ *                 parent[rootY] = rootX;
+ *             } else {
+ *                 parent[rootY] = rootX;
+ *                 rank[rootX]++;
+ *             }
+ *         }
+ *     }
+ *
+ *     public static void main(String[] args) {
+ *         UnionFind uf = new UnionFind(5);
+ *
+ *         uf.union(0, 1);
+ *         uf.union(1, 2);
+ *         uf.union(3, 4);
+ *
+ *         System.out.println("Find(0): " + uf.find(0)); // same as Find(2)
+ *         System.out.println("Find(2): " + uf.find(2));
+ *         System.out.println("Find(3): " + uf.find(3));
+ *
+ *         System.out.println("Are 0 and 2 connected? " + (uf.find(0) == uf.find(2)));
+ *         System.out.println("Are 0 and 4 connected? " + (uf.find(0) == uf.find(4)));
+ *     }
+ * }
+ * }</pre>
+ *
+ * <h2>Complexity</h2>
+ * <ul>
+ *   <li>Time Complexity: Nearly O(1) per operation (amortized)</li>
+ *   <li>Space Complexity: O(n) for parent and rank arrays</li>
+ * </ul>
+ *
+ * <h2>Applications</h2>
+ * <ul>
+ *   <li>Connected components in undirected graphs</li>
+ *   <li>Kruskal’s Minimum Spanning Tree algorithm</li>
+ *   <li>Cycle detection in graphs</li>
+ *   <li>Dynamic connectivity queries</li>
+ * </ul>
+ */
+public class UnionFindDisjointSet {
+
+	public class UnionFindDisjointSetExample {
+
+		static class UnionFind {
+			int[] parent, rank;
+
+			UnionFind(int n) {
+				parent = new int[n];
+				rank = new int[n];
+				for (int i = 0; i < n; i++)
+					parent[i] = i;
+			}
+
+			int find(int x) {
+				if (parent[x] != x)
+					parent[x] = find(parent[x]); // path compression
+				return parent[x];
+			}
+
+			void union(int x, int y) {
+				int rootX = find(x);
+				int rootY = find(y);
+				if (rootX == rootY)
+					return;
+
+				if (rank[rootX] < rank[rootY]) {
+					parent[rootX] = rootY;
+				} else if (rank[rootX] > rank[rootY]) {
+					parent[rootY] = rootX;
+				} else {
+					parent[rootY] = rootX;
+					rank[rootX]++;
+				}
+			}
+		}
+
+		public static void main(String[] args) {
+			UnionFind uf = new UnionFind(5);
+
+			uf.union(0, 1);
+			uf.union(1, 2);
+			uf.union(3, 4);
+
+			System.out.println("Find(0): " + uf.find(0)); // same as Find(2)
+			System.out.println("Find(2): " + uf.find(2));
+			System.out.println("Find(3): " + uf.find(3));
+
+			System.out.println("Are 0 and 2 connected? " + (uf.find(0) == uf.find(2)));
+			System.out.println("Are 0 and 4 connected? " + (uf.find(0) == uf.find(4)));
+		}
+	 }
+}

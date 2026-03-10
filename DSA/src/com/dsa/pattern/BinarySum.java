@@ -1,0 +1,127 @@
+package com.dsa.pattern;
+
+
+/**
+ * Demonstrates the <b>Binary Sum Pattern</b>.
+ *
+ * <p>
+ * Binary Sum refers to the process of adding two binary numbers.
+ * Each digit is processed from right to left while maintaining a carry,
+ * similar to decimal addition.
+ * </p>
+ *
+ * <h2>Key Idea</h2>
+ * <ul>
+ *   <li>Traverse both binary strings from right to left</li>
+ *   <li>Add corresponding digits and carry</li>
+ *   <li>Store result digit and update carry</li>
+ * </ul>
+ *
+ * <h2>When to Use</h2>
+ * <ul>
+ *   <li>Binary arithmetic operations</li>
+ *   <li>Bit manipulation problems</li>
+ *   <li>Low-level computation tasks</li>
+ * </ul>
+ *
+ * <h2>Example Implementation</h2>
+ *
+ * <pre>{@code
+ * package com.dsa.pattern;
+ *
+ * public class BinarySumExample {
+ *
+ *     public static String addBinary(String a, String b) {
+ *
+ *         StringBuilder result = new StringBuilder();
+ *
+ *         int i = a.length() - 1;
+ *         int j = b.length() - 1;
+ *         int carry = 0;
+ *
+ *         while (i >= 0 || j >= 0 || carry == 1) {
+ *
+ *             int sum = carry;
+ *
+ *             if (i >= 0) {
+ *                 sum += a.charAt(i--) - '0';
+ *             }
+ *
+ *             if (j >= 0) {
+ *                 sum += b.charAt(j--) - '0';
+ *             }
+ *
+ *             result.append(sum % 2);
+ *             carry = sum / 2;
+ *         }
+ *
+ *         return result.reverse().toString();
+ *     }
+ *
+ *     public static void main(String[] args) {
+ *
+ *         String a = "1010";
+ *         String b = "1011";
+ *
+ *         String result = addBinary(a, b);
+ *
+ *         System.out.println("Binary Sum: " + result);
+ *     }
+ * }
+ * }</pre>
+ *
+ * <h2>Complexity</h2>
+ * <ul>
+ *   <li><b>Time Complexity:</b> O(n)</li>
+ *   <li><b>Space Complexity:</b> O(n)</li>
+ * </ul>
+ *
+ * <h2>Applications</h2>
+ * <ul>
+ *   <li>Binary number calculations</li>
+ *   <li>Bitwise computation algorithms</li>
+ *   <li>Digital circuit logic simulations</li>
+ * </ul>
+ */
+public class BinarySum {
+
+	public class BinarySumExample {
+
+		public static String addBinary(String a, String b) {
+
+			StringBuilder result = new StringBuilder();
+
+			int i = a.length() - 1;
+			int j = b.length() - 1;
+			int carry = 0;
+
+			while (i >= 0 || j >= 0 || carry == 1) {
+
+				int sum = carry;
+
+				if (i >= 0) {
+					sum += a.charAt(i--) - '0';
+				}
+
+				if (j >= 0) {
+					sum += b.charAt(j--) - '0';
+				}
+
+				result.append(sum % 2);
+				carry = sum / 2;
+			}
+
+			return result.reverse().toString();
+		}
+
+		public static void main(String[] args) {
+
+			String a = "1010";
+			String b = "1011";
+
+			String result = addBinary(a, b);
+
+			System.out.println("Binary Sum: " + result);
+		}
+	}
+}
